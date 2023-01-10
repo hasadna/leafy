@@ -1,6 +1,7 @@
 from django.core.management.base import BaseCommand, CommandError
 import datetime
 import os
+import dotenv
 
 import logging
 from telegram import Update
@@ -55,6 +56,7 @@ class Command(BaseCommand):
         pass
 
     def handle(self, *args, **options):
+        dotenv.load_dotenv() # Allows reading .env from outside docker
         token = os.environ['TELEGRAM_TOKEN']
         application = ApplicationBuilder().token(token).build()
         
