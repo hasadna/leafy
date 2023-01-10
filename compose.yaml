@@ -17,6 +17,7 @@ services:
     build: .
     environment:
       PGPASSWORD: "${POSTGRES_PASSWORD}"
+      DJANGO_SECRET_KEY: "${DJANGO_SECRET_KEY}"
     depends_on:
       db:
         condition: service_healthy
@@ -30,6 +31,7 @@ services:
     environment:
       PGPASSWORD: "${POSTGRES_PASSWORD}"
       TELEGRAM_TOKEN: "${TELEGRAM_TOKEN}"
+      DJANGO_SECRET_KEY: "${DJANGO_SECRET_KEY}"
     depends_on:
       db:
         condition: service_healthy
