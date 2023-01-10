@@ -1,0 +1,7 @@
+Store / read from db
+models - sqlalchemy
+storing photos in DB?
+Scoring element?
+Translation
+WebUI
+  password auth https://caddyserver.com/docs/caddyfile/directives/basicauth

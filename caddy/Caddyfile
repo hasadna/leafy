@@ -1,0 +1,7 @@
+leafy.backslasher.net
+
+basicauth /* {
+  schmear $2a$14$LbNTIJP81T15K6nFOgcyYem1Ii.mbhpp33j/VZlbVtHgMsqrpJPcC
+  reverse_proxy web
+}
+
