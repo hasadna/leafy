@@ -14,7 +14,7 @@ from telegram.ext import (
     ContextTypes,
 )
 
-from bot.services import get_user, store_location, store_photo
+from bot.services import get_user, store_location, store_photo, NoLocationException
 
 
 async def extract_user(update):
@@ -27,19 +27,17 @@ logging.basicConfig(
 )
 
 
+async def send_message(update, text):
+    await context.bot.send_message(chat_id=update.effective_chat.id, text=text)
+
+
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await context.bot.send_message(
-        chat_id=update.effective_chat.id,
-        text="""\
-Hi, pleaes send me your locartion!
-הי, שלח לי לייב לוקיישן בבקשה!
-""",
-    )
+    await send_message(update, "היי, אני צריך לייב לוקיישן ואז תמונות של עצים, בבקשה!")
 
 
 async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await extract_user(update)
-    await context.bot.send_message(chat_id=update.effective_chat.id, text=update)
+    await send_message(update, "אני צריך לייב לוקיישן ואז תמונות של עצים, בבקשה")
 
 
 async def got_location(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -53,30 +51,22 @@ async def got_location(update: Update, context: ContextTypes.DEFAULT_TYPE):
         location.horizontal_accuracy,
         message.date,
     )
-    await context.bot.send_message(
-        chat_id=update.effective_chat.id, text=f"got location! {location}"
-    )
 
 
 async def got_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # TODO ensure location is fresh (last 5min?) should we?
-    await context.bot.send_message(
-        chat_id=update.effective_chat.id, text="Thank you for this tree pic 🌲."
-    )
-    await context.bot.send_message(chat_id=update.effective_chat.id, text=update)
-
     user = await extract_user(update)
-
     message = update.message
     photo_file = await message.effective_attachment[-1].get_file()
     with io.BytesIO() as s:
         await photo_file.download_to_memory(out=s)
         s.seek(0)
         photo_data = s.read()
-    await store_photo(user, photo_data, message.date)
-
-
-# TODO do we want gamification?
+    try:
+        await store_photo(user, photo_data, message.date)
+        await send_message(update, "תודה! 🌲")
+    except NoLocationException:
+        await send_message(update, "אני צריך לייב לוקיישן. שתף איתי בבקשה")
 
 
 class Command(BaseCommand):
@@ -95,6 +85,7 @@ class Command(BaseCommand):
 
         application.add_handler(MessageHandler(filters.LOCATION, got_location))
         application.add_handler(MessageHandler(filters.PHOTO, got_photo))
+        # Last resort
         application.add_handler(MessageHandler(filters.CHAT, echo))
 
         application.run_polling()

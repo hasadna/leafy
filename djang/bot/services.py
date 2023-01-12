@@ -38,7 +38,6 @@ async def store_photo(user: models.User, photo_stream: bytes, when: datetime.dat
     )
     if latest_location is None:
         raise NoLocationException()
-    print("aaaa", photo_stream)
     photo = models.Photo(
         user=user,
         content=photo_stream,
