@@ -16,6 +16,7 @@ services:
       start_period: 80s
 
   migrate:
+    image: leafy
     build: .
     restart: on-failure
     environment: &commonenv
@@ -33,6 +34,7 @@ services:
     command: ["migrate"]
 
   web:
+    image: leafy
     build: .
     environment:
       <<: *commonenv
@@ -42,6 +44,7 @@ services:
 
 
   bot:
+    image: leafy
     build: .
     environment:
       <<: *commonenv
