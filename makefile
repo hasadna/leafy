@@ -1,11 +1,11 @@
 .PHONY: init freeze lint makemigrations serve test bot
 
 bot:
-	# venv/bin/python bot.py
 	venv/bin/python djang/manage.py bot
 
 init:
-	virtualenv venv
+	python3 -m venv venv
+	venv/bin/pip install --upgrade pip
 	venv/bin/pip install -r requirements.txt
 
 freeze:
