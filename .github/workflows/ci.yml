@@ -30,6 +30,6 @@ jobs:
             export GIT_SSH_COMMAND="ssh -i `pwd`/hasadna_k8s_deploy_key -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" &&\
             git clone git@github.com:hasadna/hasadna-k8s.git &&\
             cd hasadna-k8s &&\
-            python update_yaml.py '{"appImage":"'"${DOCKER_APP_IMAGE_NAME}:${GITHUB_SHA}"'"}' apps/leafy/values-hasadna-auto-updated.yaml &&\
+            python update_yaml.py '{"appImage":"'"${DOCKER_APP_IMAGE_NAME}:${GITHUB_SHA}"'"}' apps/leafy/values-hasadna-auto-updated.yaml
           fi
         fi
