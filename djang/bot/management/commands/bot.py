@@ -27,17 +27,21 @@ logging.basicConfig(
 )
 
 
-async def send_message(update, text):
+async def send_message(update, context, text):
     await context.bot.send_message(chat_id=update.effective_chat.id, text=text)
 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await send_message(update, "היי, אני צריך לייב לוקיישן ואז תמונות של עצים, בבקשה!")
+    await send_message(
+        update, context, "היי, אני צריך לייב לוקיישן ואז תמונות של עצים, בבקשה!"
+    )
 
 
 async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await extract_user(update)
-    await send_message(update, "אני צריך לייב לוקיישן ואז תמונות של עצים, בבקשה")
+    await send_message(
+        update, context, "אני צריך לייב לוקיישן ואז תמונות של עצים, בבקשה"
+    )
 
 
 async def got_location(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -64,9 +68,9 @@ async def got_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
         photo_data = s.read()
     try:
         await store_photo(user, photo_data, message.date)
-        await send_message(update, "תודה! 🌲")
+        await send_message(update, context, "תודה! 🌲")
     except NoLocationException:
-        await send_message(update, "אני צריך לייב לוקיישן. שתף איתי בבקשה")
+        await send_message(update, context, "אני צריך לייב לוקיישן. שתף איתי בבקשה")
 
 
 class Command(BaseCommand):

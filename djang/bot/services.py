@@ -30,9 +30,12 @@ async def store_location(user, lat, lon, accuracy, when):
 
 async def store_photo(user: models.User, photo_stream: bytes, when: datetime.datetime):
     # Find the location
+    threshold = datetiem.timedelta(minutes=5)
+    freshness = datetime.datetime.now() - threshold
     latest_location = (
         await models.UserLocation.objects.all()
         .filter(user=user, created_at__lte=when)
+        .filter(created_at__gte=freshness)
         .order_by("-created_at")
         .afirst()
     )

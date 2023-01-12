@@ -15,7 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from bot.views import PhotoListView, PhotoRawView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("photos/", PhotoListView.as_view(), name="photo-list"),
+    path("photos/raw/<pk>/", PhotoRawView, name="photo-raw"),
 ]

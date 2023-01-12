@@ -1,0 +1,22 @@
+<html>
+  <body>
+    <table border=1>
+      <thead>
+        <th>Date</th>
+        <th>User ID</th>
+        <th>location</th>
+        <th>photo</th>
+      </thead>
+      <tbody>
+        {% for photo in object_list %}
+        <tr>
+          <td>{{ photo.created_at }}</td>
+          <td>{{ photo.user.id }}</td>
+          <td>{{ photo.location.latitude }} / {{photo.location.longitude}} ~ {{photo.location.accuracy_meters}}m</td>
+          <td><img style="height:300px" src="{% url 'photo-raw' photo.pk %}"</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>
