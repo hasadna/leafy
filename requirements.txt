@@ -1,16 +1,17 @@
 anyio==3.6.2
 asgiref==3.6.0
 certifi==2022.12.7
-Django==4.1.5
+click==8.1.3
+Django @ git+https://github.com/django/django.git@c2118d72d61746f2462fca695dbf3adf44ebf8f7
+gunicorn==20.1.0
 h11==0.14.0
 httpcore==0.16.3
 httpx==0.23.3
 idna==3.4
+psycopg2-binary==2.9.5
 python-dotenv==0.21.0
 python-telegram-bot==20.0
 rfc3986==1.5.0
 sniffio==1.3.0
 sqlparse==0.4.3
-psycopg2-binary==2.9.5
 uvicorn==0.20.0
-gunicorn==20.1.0
