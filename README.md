@@ -35,18 +35,24 @@ This environment resembles the production environment as closely as possible.
 Run migrations:
 
 ```bash
-docker-compose run --build migrate
+docker-compose run --build --rm migrate
 ```
 
-Start the web server:
+Start the web app:
 
 ```bash
-docker-compose up -d --build web
+docker-compose up -d --build ingress
 ```
 
-Access the web server at http://localhost:8000
+Access at http://localhost:8000
 
-Start the bot:
+Create a superuser:
+
+```bash
+docker-compose run --rm web python manage.py createsuperuser
+```
+
+Start the Telegram bot:
 
 ```bash
 export TELEGRAM_TOKEN=...
