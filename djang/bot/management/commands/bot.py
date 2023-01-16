@@ -47,30 +47,38 @@ async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def got_location(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = update.message or update.edited_message
     user = await extract_user(update)
-    location = message.location
-    await store_location(
-        user,
-        location.latitude,
-        location.longitude,
-        location.horizontal_accuracy,
-        message.date,
-    )
+    try:
+        location = message.location
+        await store_location(
+            user,
+            location.latitude,
+            location.longitude,
+            location.horizontal_accuracy,
+            message.date,
+        )
+    except Exception as e:
+        await send_message(update, context, "קרתה לי שגיאה")
+        await send_message(update, context, str(e))
 
 
 async def got_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # TODO ensure location is fresh (last 5min?) should we?
     user = await extract_user(update)
     message = update.message
-    photo_file = await message.effective_attachment[-1].get_file()
-    with io.BytesIO() as s:
-        await photo_file.download_to_memory(out=s)
-        s.seek(0)
-        photo_data = s.read()
     try:
-        await store_photo(user, photo_data, message.date)
-        await send_message(update, context, "תודה! 🌲")
-    except NoLocationException:
-        await send_message(update, context, "אני צריך לייב לוקיישן. שתף איתי בבקשה")
+        photo_file = await message.effective_attachment[-1].get_file()
+        with io.BytesIO() as s:
+            await photo_file.download_to_memory(out=s)
+            s.seek(0)
+            photo_data = s.read()
+        try:
+            await store_photo(user, photo_data, message.date)
+            await send_message(update, context, "תודה! 🌲")
+        except NoLocationException:
+            await send_message(update, context, "אני צריך לייב לוקיישן. שתף איתי בבקשה")
+    except Exception as e:
+        await send_message(update, context, "קרתה לי שגיאה")
+        await send_message(update, context, str(e))
 
 
 class Command(BaseCommand):
