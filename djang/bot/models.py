@@ -15,7 +15,7 @@ class UserLocation(models.Model):
     user = models.ForeignKey("User", on_delete=models.CASCADE)
     latitude = models.DecimalField(max_digits=8, decimal_places=6)
     longitude = models.DecimalField(max_digits=9, decimal_places=6)
-    accuracy_meters = models.DecimalField(max_digits=5, decimal_places=2)
+    accuracy_meters = models.DecimalField(max_digits=5, decimal_places=2, null=True)
     created_at = models.DateTimeField(db_index=True, default=timezone.now)
 
 
