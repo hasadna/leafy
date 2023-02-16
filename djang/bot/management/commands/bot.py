@@ -33,39 +33,42 @@ async def send_message(update, context, text):
     await context.bot.send_message(chat_id=update.effective_chat.id, text=text)
 
 
-# "היי, אני צריך לייב לוקיישן ואז תמונות של עצים, בבקשה!"
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = '''
+הי, תודה שהצטרפת למאמץ להפוך את רחובות העיר שלנו לירוקים יותר באמצעות מיפוי היער העירוני 🌳🏡🌳🏫
+'''
+    await send_message(update, context, message)
+
+    message = '''
 מה שקשה למדוד קשה לנהל. כדי לקדם קבלת החלטות מבוססות נתונים,
-שלב ראשון במיפוי היער העירוני הדיגיטלי הוא לדעת כמה עצים יש לנו? איפה הם נמצאים? ואיך הם נראים?'''
+שלב ראשון במיפוי היער העירוני הדיגיטלי, כמה עצים יש לנו? איפה הם נמצאים? ואיך הם נראים?'''
     await send_message(
         update, context, message
     )
     await asyncio.sleep(1)
 
-    message = '''יוצאים לדרך, קודם כל יש להפעיל את הגדרת המיקום הזו, share my live location למשך זמן המיפוי הצפוי'''
+    message = '''📍יוצאים לדרך.. קודם כל יש להפעיל את הגדרת המיקום הזו : share my live location  למשך זמן המיפוי הצפוי.'''
     await send_message(update, context, message)
     await asyncio.sleep(1)
 
     message = '''
-עבור כל עץ שיתועד צריך לעשות 3 דברים בלבד:
-1. צילום נוף העץ.
-2. צילום מקרוב של העלים
-3. ציילום בסיס העץ והגזע קרוב ככל שניתן'''
+עבור כל עץ צריך לעשות שלושה דברים בלבד:
+🌳 צילום נוף העץ
+🌿 צילום מקרוב של העלים
+📍צילום בסיס העץ והגזע קרוב ככל שניתן
+'''
     await send_message(update, context, message)
     await asyncio.sleep(1)
 
-    message = '''
-לכל תמונה שתצולם יצורף מיקום בצורה אוטומטית.
-חשוב למפות עם כיוון ההליכה וכל עץ לצלם קודם מרחוק (נוף) ועד לקרוב (בסיס העץ). 3 תמונות יספיקו בהחלט :)
-
-כדי שנדע שסיימת, בסוף המיפוי יש להקליד end/
-
-זהו פיילוט, ובכל מקרה לא נשמור פרטים אישיים'''
+    message = '''לכל תמונה שתצולם יצורף מיקום בצורה אוטומטית. חשוב למפות עם כיוון ההליכה וכל עץ לצלם קודם מרחוק (נוף) ועד לקרוב (בסיס העץ). שלוש תמונות יספיקו בהחלט 😉'''
     await send_message(update, context, message)
     await asyncio.sleep(1)
 
-    message = '''אם הכל ברור ומוסכם, אפשר להתחיל לצלם, בהצלחה :)'''
+    message = '''כדי שנדע שסיימת, בסוף המיפוי יש להקליד end/'''
+    await send_message(update, context, message)
+    await asyncio.sleep(1)
+
+    message = '''זהו פיילוט, ובכל מקרה לא נשמור פרטים אישיים. אם הכל ברור ומוסכם, אפשר להתחיל לצלם - בהצלחה!'''
     await send_message(update, context, message)
 
 
@@ -116,9 +119,11 @@ async def got_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 async def end(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    message = '''
-    תודה! עשית עבודה מצויינת. עזרת לקידום דיגיטציית עצי הרחוב בישראל.
-    אשמח להיפגש בהמשך ולהמשיך לעבוד ביחד'''
+    message = '''תודה!
+עשית עבודה מצויינת. עזרת לקידום דיגיטציית עצי הרחוב בישראל.
+בימים אלו נרקם שיתוף פעולה בין שחקנים רבים העוסקים ביער העירוני, ועכשיו הוספת את חלקך.
+נשמח לשיתוף והמשך המיפוי מתי שיהיה לך נוח.
+'''
     await send_message(update, context, message)
 
 
