@@ -24,7 +24,7 @@ async def extract_user(update):
     return await get_user(f.username, f.first_name, f.last_name, f.id)
 
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("asyncio")
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
 )
@@ -85,8 +85,8 @@ async def got_location(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = await extract_user(update)
     try:
         location = message.location
-        logger.info(location.latitude, location.longitude, location.horizontal_accuracy,
-                    datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
+        # logger.info(location.latitude, location.longitude, location.horizontal_accuracy,
+        #             datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 
         await store_location(
             user,
