@@ -27,6 +27,7 @@ async def extract_user(update):
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
 )
+logger = logging.getLogger(__name__)
 
 
 async def send_message(update, context, text):
@@ -100,10 +101,13 @@ async def got_location(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def got_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # TODO ensure location is fresh (last 5min?) should we?
+    logger.info('start get_photo')
     user = await extract_user(update)
+    logger.info('extracted user')
     message = update.message
     try:
         photo_file = await message.effective_attachment[-1].get_file()
+        logger.info('got photo')
         with io.BytesIO() as s:
             await photo_file.download_to_memory(out=s)
             s.seek(0)
