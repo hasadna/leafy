@@ -5,9 +5,9 @@ from django.utils import timezone
 
 class User(models.Model):
     id = models.BigIntegerField(primary_key=True)
-    username = models.CharField(max_length=30)
-    first_anme = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=30)
+    username = models.CharField(max_length=30, default='guest')
+    first_anme = models.CharField(max_length=30, default='guest')
+    last_name = models.CharField(max_length=30, default='guest')
     created_at = models.DateTimeField(db_index=True, default=timezone.now)
 
 
