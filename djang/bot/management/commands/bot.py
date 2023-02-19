@@ -85,7 +85,8 @@ async def got_location(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = await extract_user(update)
     try:
         location = message.location
-        logger.info(location.latitude, location.longitude, location.horizontal_accuracy, datetime.datetime.now())
+        logger.info(location.latitude, location.longitude, location.horizontal_accuracy,
+                    datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 
         await store_location(
             user,
