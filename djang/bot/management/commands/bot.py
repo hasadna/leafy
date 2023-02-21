@@ -16,7 +16,7 @@ from telegram.ext import (
     ContextTypes,
 )
 
-from bot.services import get_user, store_location, store_photo, NoLocationException
+from bot.services import get_user, store_location, store_photo, NoLocationException, store_chat
 
 
 async def extract_user(update):
@@ -74,10 +74,16 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await extract_user(update)
-    await send_message(
-        update, context, "אני צריך לייב לוקיישן ואז תמונות של עצים, בבקשה"
-    )
+    user = await extract_user(update)
+
+    phone = update.message.text
+
+    if update.message.entities and update.message.entities[0].type == 'phone_number':
+        await store_chat(user.id, phone)
+    else:
+        await send_message(
+            update, context, "אני צריך לייב לוקיישן ואז תמונות של עצים, בבקשה"
+        )
 
 
 async def got_location(update: Update, context: ContextTypes.DEFAULT_TYPE):

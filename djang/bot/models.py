@@ -8,6 +8,7 @@ class User(models.Model):
     username = models.CharField(max_length=30, default='guest')
     first_anme = models.CharField(max_length=30, default='guest')
     last_name = models.CharField(max_length=30, default='guest')
+    phone = models.CharField(max_length=20, null=True, blank=True)
     created_at = models.DateTimeField(db_index=True, default=timezone.now)
 
 

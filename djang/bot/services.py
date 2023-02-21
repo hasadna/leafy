@@ -51,3 +51,12 @@ async def store_photo(user: models.User, photo_stream: bytes, when: datetime.dat
     # TODO I know storing photos in the DB sucks, but it's with the other data
     await photo.asave()
     return photo
+
+
+async def store_chat(user_id: int, chat: str):
+
+    if len(chat) > 20:
+        return
+    user = await models.User.objects.aget(id=user_id)
+    user.phone = chat
+    await user.asave()
