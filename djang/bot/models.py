@@ -11,6 +11,9 @@ class User(models.Model):
     phone = models.CharField(max_length=20, null=True, blank=True)
     created_at = models.DateTimeField(db_index=True, default=timezone.now)
 
+    def __str__(self):
+        return f'{self.username}: {self.first_anme} {self.last_name}'
+
 
 class UserLocation(models.Model):
     user = models.ForeignKey("User", on_delete=models.CASCADE)
