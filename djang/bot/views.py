@@ -25,6 +25,6 @@ def csv_download(request):
     writer.writerow(['user id', 'username', 'first name', 'last name', 'phone', 'location- longtitude',
                      'location- latitude', 'accuracy', 'picture url'])
     for line in data:
-        writer.writerow(line.user.id, line.user.username, line.user.first_anme, line.user.last_name,
+        writer.writerow([line.user.id, line.user.username, line.user.first_anme, line.user.last_name,
                         line.user.phone, line.location.longitude, line.location.latitude,
-                        line.location.accuracy_meters, f'https://leafy.hasadna.org.il/photos/raw/{line.id}/')
+                        line.location.accuracy_meters, f'https://leafy.hasadna.org.il/photos/raw/{line.id}/'])
