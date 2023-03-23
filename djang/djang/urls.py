@@ -15,10 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from bot.views import PhotoListView, PhotoRawView
+from bot.views import PhotoListView, PhotoRawView, csv_download
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("photos/", PhotoListView.as_view(), name="photo-list"),
     path("photos/raw/<pk>/", PhotoRawView, name="photo-raw"),
+    path('csv/', csv_download, name='csv_downloader'),
 ]
