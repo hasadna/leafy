@@ -28,3 +28,4 @@ def csv_download(request):
         writer.writerow([line.user.id, line.user.username, line.user.first_anme, line.user.last_name,
                         line.user.phone, line.location.longitude, line.location.latitude,
                         line.location.accuracy_meters, f'https://leafy.hasadna.org.il/photos/raw/{line.id}/'])
+    return response
